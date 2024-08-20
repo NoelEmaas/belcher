@@ -57,7 +57,7 @@ def main():
     if data:
         output_dir = 'outputs'
         os.makedirs(output_dir, exist_ok=True)
-        file_name = f"{selected_site['name']}.xlsx"w
+        file_name = f"{selected_site['name']}.xlsx"
         file_path = os.path.join(output_dir, file_name)
         df = pd.DataFrame(data)
         df.to_excel(file_path, index=False)
