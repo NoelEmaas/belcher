@@ -7,10 +7,12 @@ headers = {
 }
 
 
-def format_dates(events):
+def clean_data(events):
     for event in events:
         event["datestart"] = format_date(event["datestart"], "%Y-%m-%d %H:%M:%S")
         event["dateend"] = format_date(event["dateend"], "%Y-%m-%d %H:%M:%S")
+        event["image"] = event["leadimage"]["large"]
+        del event["leadimage"]
     return events
 
 
@@ -19,10 +21,7 @@ def get_events():
     response = requests.get(url, headers=headers)
     
     if response.status_code == 200:
-        events = format_dates(response.json()["data"]["events"])
-        for event in events:
-            event["image"] = event["leadimage"]["large"]
-            del event["leadimage"]
+        events = clean_data(response.json()["data"]["events"])
         print(events)
         return events
     else:
