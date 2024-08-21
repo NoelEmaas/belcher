@@ -17,6 +17,7 @@ def get_all_events(html_content):
                 script_json = json.loads(script_content)
                 script_json["endDate"] = format_date(script_json["endDate"], "%Y-%m-%dT%H:%M:%S.%f%z")
                 script_json["startDate"] = format_date(script_json["startDate"], "%Y-%m-%dT%H:%M:%S.%f%z")
+                script_json["location"] = script_json["location"]["name"] if "location" in script_json else ""
                 del script_json["@context"]
                 del script_json["@type"]
                 del script_json["performer"]

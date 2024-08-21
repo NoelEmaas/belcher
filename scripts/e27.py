@@ -20,6 +20,9 @@ def get_events():
     
     if response.status_code == 200:
         events = format_dates(response.json()["data"]["events"])
+        for event in events:
+            event["image"] = event["leadimage"]["large"]
+            del event["leadimage"]
         print(events)
         return events
     else:
