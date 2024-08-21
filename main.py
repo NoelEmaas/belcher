@@ -53,16 +53,17 @@ def main():
         print("No scraping function available for the selected site.")
         data = None
 
-    # WIP: some json formats is not being saved properly
     if data:
         output_dir = 'outputs'
         os.makedirs(output_dir, exist_ok=True)
-        file_name = f"{selected_site['name']}.xlsx"
-        file_path = os.path.join(output_dir, file_name)
-        df = pd.DataFrame(data)
-        df.to_excel(file_path, index=False)
+        file_path = os.path.join(output_dir, "scraped_data.xlsx")
+        
+        with pd.ExcelWriter(file_path, mode='a', engine='openpyxl', if_sheet_exists='replace') as writer:
+            df = pd.DataFrame(data)
+            df.to_excel(writer, sheet_name=selected_site['name'], index=False)
 
         print("Data has been saved to an excel file.")
+
 
 if __name__ == "__main__":
   main()
